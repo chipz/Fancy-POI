@@ -1,11 +1,20 @@
-# Java
-target/
-/bin/
+# Eclipse
+/bin
+.settings
+.classpath
+.project
+.cache*
 
 # Idea
 .idea/
 *.iml
 
-# Eclipse
-.project
-.classpath
+# sbt
+target/
+src_managed/
+lib_managed/
+project/target/
+project/project/
+
+*.class
+*.log
