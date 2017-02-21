@@ -22,5 +22,5 @@ In your `build.sbt`:
 ```scala
 resolvers += "jitpack" at "https://jitpack.io"
 
-libraryDependencies += "com.github.frozenspider" %% "fancy-poi" % "1.2"
+libraryDependencies += "com.github.frozenspider" %% "fancy-poi" % "1.2.1"
 ```

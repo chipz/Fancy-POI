@@ -1,6 +1,6 @@
 name         := "fancy-poi"
 organization := "org.fancypoi"
-version      := "1.1"
+version      := "1.2.1"
 scalaVersion := "2.11.8"
 
 crossScalaVersions := Seq("2.10.4", "2.11.8", "2.12.1")
