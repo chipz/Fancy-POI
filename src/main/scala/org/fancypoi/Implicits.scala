@@ -30,4 +30,11 @@ object Implicits {
 
   implicit def str2Addr(addr: String) = new AddrRangeStart(addr)
 
+  implicit class CellConvertWrapper(val c:Cell) {
+    def toFancy = new FancyCell(c)
+  }
+
+  implicit class RowConverWrapper(r: Row) {
+    def toFancy = new FancyRow(r)
+  }
 }

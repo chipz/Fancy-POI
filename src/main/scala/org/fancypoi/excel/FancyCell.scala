@@ -27,6 +27,25 @@ class FancyCell(protected[fancypoi] val _cell: Cell) {
     }
   }
 
+  //force convert value to string
+  def valueToString: String = {
+    import FancyCellType._
+    cellType match {
+      case CellTypeNumeric =>
+        val str = numericValue.toString
+        if (str.endsWith(".0")) {
+          str.replace(".0", "")
+        } else {
+          str
+        }
+      case CellTypeString  => stringValue
+      case CellTypeFormula => getCellResultFormulaAsString
+      case CellTypeBlank   => ""
+      case CellTypeBoolean => booleanValue.toString
+      case CellTypeError     => ""
+    }
+  }
+
   def stringValue: String = _cell.getStringCellValue
 
   def numericValue: Double = _cell.getNumericCellValue
@@ -133,6 +152,36 @@ class FancyCell(protected[fancypoi] val _cell: Cell) {
     val style = workbook.getStyle(block)
     _cell.setCellStyle(style)
     this
+  }
+
+  def nextCell = {
+    _cell.getSheet.cellAt(_cell.getColumnIndex + 1, _cell.getRowIndex)
+  }
+
+  def nexCell(x: Int) = {
+    _cell.getSheet.cellAt(_cell.getColumnIndex + x, _cell.getRowIndex)
+  }
+
+  def nextCellDown = {
+    _cell.getSheet.cellAt(_cell.getColumnIndex, _cell.getRowIndex + 1)
+  }
+
+  def nextCellDown(x: Int) = {
+    _cell.getSheet.cellAt(_cell.getColumnIndex, _cell.getRowIndex + x)
+  }
+
+  def getCellResultFormulaAsString = {
+    _cell.getCachedFormulaResultType match {
+      case Cell.CELL_TYPE_NUMERIC =>
+        val str = _cell.numericValue.toString
+        if (str.endsWith(".0")) {
+          str.replace(".0", "")
+        } else {
+          str
+        }
+      case Cell.CELL_TYPE_STRING => _cell.getRichStringCellValue.toString
+      case Cell.CELL_TYPE_ERROR => "0"
+    }
   }
 
 }

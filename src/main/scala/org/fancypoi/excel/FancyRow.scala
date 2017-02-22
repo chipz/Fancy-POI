@@ -45,6 +45,20 @@ class FancyRow(protected[fancypoi] val _row: Row) {
     block(new CellSeq(_row, startColIndex))
   }
 
+  def find(query: String) = {
+    cells.filter(_.value.isDefined).find { cell =>
+      import FancyCellType._
+      val cellValueStr = cell.cellType match {
+        case CellTypeNumeric => cell.value.get.toString
+        case CellTypeString  => cell.value.get.toString
+        case CellTypeFormula => ""
+        case CellTypeBoolean => cell.value.get.toString
+        case _ => ""
+      }
+      cellValueStr == query
+    }.map(x => x.addr)
+  }
+
   private class CellSeq(row: Row, colIndex: Int) {
     var current = colIndex
 

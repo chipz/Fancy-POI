@@ -18,6 +18,7 @@ class FancyFont extends Font {
   private var _underline: Byte = Font.U_NONE
   private var _charset: Int = 0
   private var _boldweight: Short = 400
+  private var _bold: Boolean = false
 
   def setFontName(name: String): Unit = _name = name
 
@@ -60,4 +61,8 @@ class FancyFont extends Font {
   def setBoldweight(boldweight: Short): Unit = _boldweight = boldweight
 
   def getBoldweight: Short = _boldweight
+
+  def setBold(bold: Boolean): Unit = _bold = bold
+
+  def getBold: Boolean = _bold
 }

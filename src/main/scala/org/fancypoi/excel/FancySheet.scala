@@ -80,4 +80,18 @@ class FancySheet(protected[fancypoi] val _sheet: Sheet) {
   def lastRowAddr = _sheet.getLastRowNum + 1 toString
 
   def name = _sheet.getSheetName
+
+  def find(query: String): Option[String] = {
+    rows.flatMap( row => row.cells.filter(_.value.isDefined).find { cell =>
+      import FancyCellType._
+      val cellValueStr = cell.cellType match {
+        case CellTypeNumeric => cell.value.get.toString
+        case CellTypeString  => cell.value.get.toString
+        case CellTypeFormula => ""
+        case CellTypeBoolean => cell.value.get.toString
+        case _ => ""
+      }
+      cellValueStr.contains(query)
+    }.map(x => x.addr)).headOption
+  }
 }

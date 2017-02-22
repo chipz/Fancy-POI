@@ -38,11 +38,10 @@ object FancyExcelUtils {
   }
 
   def searchStyle(workbook: FancyWorkbook, style: FancyCellStyle) = {
-    (0 to workbook.workbook.getNumCellStyles - 1).map(_.toShort).find {
-      index =>
+    (0 to workbook.workbook.getNumCellStyles - 1).map(_.toShort).find { index =>
         val registered = workbook.workbook.getCellStyleAt(index toShort)
         equalStyleWithoutFont(style, registered) && equalFont(style.getFont, workbook.getFontAt(registered.getFontIndex))
-    }.map(workbook.workbook.getCellStyleAt)
+    }.map(x => workbook.workbook.getCellStyleAt(x.toInt))
   }
 
   /**
