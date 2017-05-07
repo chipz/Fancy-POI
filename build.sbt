@@ -9,4 +9,4 @@ libraryDependencies ++= Seq(
   "org.apache.poi" % "poi-ooxml" % "3.14"
 )
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.7"
