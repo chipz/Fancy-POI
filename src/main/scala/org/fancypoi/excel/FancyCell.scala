@@ -48,6 +48,14 @@ class FancyCell(protected[fancypoi] val _cell: Cell) {
 
   def stringValue: String = _cell.getStringCellValue
 
+  def forceStringValue: String = {
+    val x = _cell.getCellType
+    _cell.setCellType(Cell.CELL_TYPE_STRING)
+    val y = _cell.getStringCellValue
+    _cell.setCellType(x)
+    y
+  }
+
   def numericValue: Double = _cell.getNumericCellValue
 
   def richTextValue: RichTextString = _cell.getRichStringCellValue
