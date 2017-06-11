@@ -1,8 +1,8 @@
 package org.fancypoi.excel
 
-import org.apache.poi.ss.usermodel.{ RichTextString, Hyperlink, Font, CellStyle, Cell }
+import org.apache.poi.ss.usermodel._
 import org.apache.poi.ss.util.CellReference.convertNumToColString
-import java.util.{ Calendar, Date }
+import java.util.{Calendar, Date}
 import org.fancypoi.Implicits._
 import org.fancypoi.excel.FancyExcelUtils._
 
@@ -189,6 +189,19 @@ class FancyCell(protected[fancypoi] val _cell: Cell) {
         }
       case Cell.CELL_TYPE_STRING => _cell.getRichStringCellValue.toString
       case Cell.CELL_TYPE_ERROR => "0"
+    }
+  }
+
+  /**
+    * check if cell is date formatted
+    * the original isCellDateFormatted is not error proof
+    * @return
+    */
+  def isCellDateFormatted = {
+    try {
+      DateUtil.isCellDateFormatted(_cell)
+    } catch {
+      case e:IllegalStateException => false
     }
   }
 
